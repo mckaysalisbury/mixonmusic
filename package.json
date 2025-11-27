@@ -1,0 +1,13 @@
+{
+  "name": "mixonmusic",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mixon Music single-page showcase",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "watch": "tsc --project tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
