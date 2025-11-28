@@ -17,13 +17,9 @@ type ContactOption = {
   icon: string;
 };
 
-type ListBoyRenderable = Array<(container: HTMLElement) => void>;
-
-type ListBoyGlobal = {
-  RenderTo(data: unknown, targetId: string, mappers?: Record<string, unknown>): void;
+declare const ListBoy: {
+  RenderTo(data: unknown, targetId: string): void;
 };
-
-type WindowWithListBoy = Window & { ListBoy: ListBoyGlobal };
 
 const heroImages: readonly ImageSource[] = [
   {
@@ -146,99 +142,14 @@ class Slideshow {
   }
 }
 
-const getListBoy = (): ListBoyGlobal | null => {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const candidate = window as Partial<WindowWithListBoy>;
-  if (candidate.ListBoy) {
-    return candidate.ListBoy;
-  }
-
-  return null;
+const navMenuMarkup = (link: NavLink): string => {
+  const externalAttrs = link.external ? ' target="_blank" rel="noreferrer noopener"' : "";
+  return `<div class="menu-item"><a class="menu-link" href="${link.href}"${externalAttrs}>${link.label}</a></div>`;
 };
 
-const renderMenuFromDataset = <T>(
-  targetId: string,
-  dataset: readonly T[],
-  builder: (entry: T) => HTMLElement
-): void => {
-  const listBoy = getListBoy();
-
-  if (listBoy) {
-    const payload: ListBoyRenderable = dataset.map((entry) => {
-      return (container: HTMLElement): void => {
-        const wrapper = document.createElement("div");
-        wrapper.className = "menu-item";
-        wrapper.appendChild(builder(entry));
-        container.appendChild(wrapper);
-      };
-    });
-
-    listBoy.RenderTo(payload, targetId);
-    return;
-  }
-
-  const fallback = document.getElementById(targetId);
-  if (!fallback) {
-    return;
-  }
-
-  fallback.replaceChildren();
-  dataset.forEach((entry) => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "menu-item";
-    wrapper.appendChild(builder(entry));
-    fallback.appendChild(wrapper);
-  });
-};
-
-const buildNavAnchor = (link: NavLink): HTMLElement => {
-  const anchor = document.createElement("a");
-  anchor.href = link.href;
-  anchor.textContent = link.label;
-  anchor.className = "menu-link";
-
-  if (link.external) {
-    anchor.target = "_blank";
-    anchor.rel = "noreferrer noopener";
-  }
-
-  return anchor;
-};
-
-const buildContactAnchor = (option: ContactOption): HTMLElement => {
-  const anchor = document.createElement("a");
-  anchor.href = option.href;
-  anchor.className = "menu-link";
-  anchor.setAttribute("aria-label", `${option.label} – ${option.hint}`);
-
-  if (option.href.startsWith("http")) {
-    anchor.target = "_blank";
-    anchor.rel = "noreferrer noopener";
-  }
-
-  const label = document.createElement("span");
-  label.className = "label";
-
-  const icon = document.createElement("span");
-  icon.className = "icon-badge";
-  icon.textContent = option.icon;
-  label.appendChild(icon);
-
-  const text = document.createElement("span");
-  text.textContent = option.label;
-  label.appendChild(text);
-
-  const hint = document.createElement("span");
-  hint.className = "contact-hint";
-  hint.textContent = option.hint;
-
-  anchor.appendChild(label);
-  anchor.appendChild(hint);
-
-  return anchor;
+const contactMenuMarkup = (option: ContactOption): string => {
+  const externalAttrs = option.href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : "";
+  return `<div class="menu-item"><a class="menu-link" href="${option.href}"${externalAttrs} aria-label="${option.label} – ${option.hint}"><span class="label"><span class="icon-badge">${option.icon}</span><span>${option.label}</span></span><span class="contact-hint">${option.hint}</span></a></div>`;
 };
 
 const initFlyout = (flyoutId: string, toggleId: string): void => {
@@ -276,8 +187,11 @@ const bootstrap = (): void => {
   const slideshow = new Slideshow(slideshowElement, heroImages);
   slideshow.start();
 
-  renderMenuFromDataset("top-menu", navLinks, buildNavAnchor);
-  renderMenuFromDataset("flyout-menu", contactOptions, buildContactAnchor);
+  const navMenuData = navLinks.map(navMenuMarkup);
+  const contactMenuData = contactOptions.map(contactMenuMarkup);
+
+  ListBoy.RenderTo(navMenuData, "top-menu");
+  ListBoy.RenderTo(contactMenuData, "flyout-menu");
 
   initFlyout("communications-flyout", "communications-toggle");
 };

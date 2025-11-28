@@ -80,13 +80,14 @@ header.top-nav {
   white-space: nowrap;
 }
 
-#top-menu.array,
+#top-menu,
 #top-menu > .array {
   display: flex;
   align-items: center;
   gap: 1.75rem;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 #top-menu.array .menu-item,
@@ -222,17 +223,22 @@ main.hero {
   pointer-events: auto;
 }
 
-#flyout-menu.array,
 #flyout-menu > .array {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
 }
 
 #flyout-menu.array .menu-item,
 #flyout-menu > .array .menu-item,
 #flyout-menu .menu-item {
   width: 100%;
+}
+
+#top-menu .string-default,
+#flyout-menu .string-default {
+  display: contents;
 }
 
 #flyout-menu .menu-link {
