@@ -33,10 +33,10 @@ const heroImages: readonly ImageSource[] = [
 ];
 
 const navLinks: readonly NavLink[] = [
-  { label: "Sessions", href: "#sessions" },
-  { label: "Artists", href: "#artists" },
-  { label: "Journal", href: "#journal" },
-  { label: "Listen", href: "#listen", external: false }
+  { label: "Home", href: "index.html" },
+  { label: "🎼 Music Lessons", href: "#music-lessons" },
+  { label: "Schedule a FREE lesson", href: "#free-lesson" },
+//   { label: "Listen", href: "#listen", external: false }
 ];
 
 const contactOptions: readonly ContactOption[] = [
@@ -60,8 +60,8 @@ const contactOptions: readonly ContactOption[] = [
   },
   {
     label: "Instagram",
-    href: "https://instagram.com/mixonmusic",
-    hint: "@mixonmusic",
+    href: "https://instagram.com/mixonmusicla",
+    hint: "@mixonmusicla",
     icon: "★"
   }
 ];
@@ -149,7 +149,17 @@ const navMenuMarkup = (link: NavLink): string => {
 
 const contactMenuMarkup = (option: ContactOption): string => {
   const externalAttrs = option.href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : "";
-  return `<div class="menu-item"><a class="menu-link" href="${option.href}"${externalAttrs} aria-label="${option.label} – ${option.hint}"><span class="label"><span class="icon-badge">${option.icon}</span><span>${option.label}</span></span><span class="contact-hint">${option.hint}</span></a></div>`;
+  return `
+    <div class="menu-item">
+      <a class="menu-link" href="${option.href}"${externalAttrs} aria-label="${option.label} – ${option.hint}">
+        <span class="label">
+          <span class="icon-badge">${option.icon}</span>
+          <span>${option.label}</span>
+        </span>
+        <span class="contact-hint">${option.hint}</span>
+      </a>
+    </div>
+  `.trim();
 };
 
 const initFlyout = (flyoutId: string, toggleId: string): void => {
