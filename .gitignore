@@ -1,3 +1,6 @@
+# WSL zone identifier files
+*:Zone.Identifier
+
 # Logs
 logs
 *.log
