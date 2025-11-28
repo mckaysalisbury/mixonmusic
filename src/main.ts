@@ -13,7 +13,6 @@ type NavLink = {
 type ContactOption = {
   label: string;
   href: string;
-  hint: string;
   icon: string;
 };
 
@@ -41,27 +40,28 @@ const navLinks: readonly NavLink[] = [
 
 const contactOptions: readonly ContactOption[] = [
   {
-    label: "Email",
+    label: "Email Us",
     href: "mailto:studio@mixonmusic.com",
-    hint: "studio@mixonmusic.com",
     icon: "✉"
   },
   {
-    label: "Phone",
+    label: "Call Us",
     href: "tel:+18015551212",
-    hint: "+1 (801) 555-1212",
-    icon: "☎"
+    icon: "📞"
   },
   {
-    label: "Text",
+    label: "Text Us",
     href: "sms:+18015551212",
-    hint: "Reply in minutes",
     icon: "💬"
   },
+//   {
+//     label: "Request info",
+//     href: "google forms?",
+//     icon: "❓"
+//   },
   {
     label: "Instagram",
     href: "https://instagram.com/mixonmusicla",
-    hint: "@mixonmusicla",
     icon: "★"
   }
 ];
@@ -144,22 +144,12 @@ class Slideshow {
 
 const navMenuMarkup = (link: NavLink): string => {
   const externalAttrs = link.external ? ' target="_blank" rel="noreferrer noopener"' : "";
-  return `<div class="menu-item"><a class="menu-link" href="${link.href}"${externalAttrs}>${link.label}</a></div>`;
+  return `<a class="menu-link" href="${link.href}"${externalAttrs}>${link.label}</a>`;
 };
 
 const contactMenuMarkup = (option: ContactOption): string => {
   const externalAttrs = option.href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : "";
-  return `
-    <div class="menu-item">
-      <a class="menu-link" href="${option.href}"${externalAttrs} aria-label="${option.label} – ${option.hint}">
-        <span class="label">
-          <span class="icon-badge">${option.icon}</span>
-          <span>${option.label}</span>
-        </span>
-        <span class="contact-hint">${option.hint}</span>
-      </a>
-    </div>
-  `.trim();
+  return `<a class="menu-link" href="${option.href}"${externalAttrs}>${option.label}&nbsp;${option.icon}</a>`;
 };
 
 const initFlyout = (flyoutId: string, toggleId: string): void => {

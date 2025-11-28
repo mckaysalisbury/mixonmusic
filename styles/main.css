@@ -90,12 +90,6 @@ header.top-nav {
   flex-wrap: wrap;
 }
 
-#top-menu.array .menu-item,
-#top-menu > .array .menu-item,
-#top-menu .menu-item {
-  list-style: none;
-}
-
 .menu-link {
   color: var(--text);
   text-decoration: none;
@@ -230,53 +224,26 @@ main.hero {
   width: 100%;
 }
 
-#flyout-menu.array .menu-item,
-#flyout-menu > .array .menu-item,
-#flyout-menu .menu-item {
-  width: 100%;
+#top-menu .string-default {
+  display: contents;
 }
 
-#top-menu .string-default,
 #flyout-menu .string-default {
-  display: contents;
+  display: block;
+  width: 100%;
 }
 
 #flyout-menu .menu-link {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 0.85rem 0.65rem 1rem;
-  letter-spacing: 0.15em;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  font-size: 0.8rem;
-}
-
-.contact-hint {
-  font-size: 0.65rem;
+  display: block;
+  padding: 0.75rem 1rem;
   letter-spacing: 0.12em;
-  color: var(--muted);
-}
-
-.icon-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  margin-right: 0.75rem;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.9rem;
-}
-
-.menu-link .label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  text-align: right;
 }
 
 @media (max-width: 900px) {
