@@ -177,8 +177,9 @@ main.hero {
   bottom: 2.25rem;
   right: 2.25rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-end;
+  gap: 0.9rem;
   z-index: 20;
 }
 
@@ -203,7 +204,6 @@ main.hero {
 }
 
 .flyout-panel {
-  margin-top: 0.9rem;
   background: var(--surface-strong);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);

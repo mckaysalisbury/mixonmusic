@@ -56,7 +56,7 @@ const contactOptions: readonly ContactOption[] = [
     label: "Text",
     href: "sms:+18015551212",
     hint: "Reply in minutes",
-    icon: "✆"
+    icon: "💬"
   },
   {
     label: "Instagram",
